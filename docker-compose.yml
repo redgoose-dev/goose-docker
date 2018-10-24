@@ -1,0 +1,53 @@
+version: '3.7'
+
+services:
+  web:
+    image: nginx:latest
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+      - "8002:8002"
+    volumes:
+      - ./www:/www
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    links:
+      - php
+    networks:
+      - backend
+
+  php:
+    image: php:7.2-fpm
+    volumes:
+      - ./www:/www
+    links:
+      - mysql
+    networks:
+      - backend
+
+  mysql:
+    image: mariadb:latest
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db:/var/lib/mysql # TODO: 여기 작동안되는데 해결이 필요함
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234 # mysql root password
+    networks:
+      - backend
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    links:
+      - mysql:db
+    ports:
+      - "7999:80"
+    environment:
+      - PMA_USER=root
+      - PMA_PASSWORD=1234 # mysql root password
+      - PHP_UPLOAD_MAX_FILESIZE=100MB
+    networks:
+      - backend
+
+networks:
+  backend:
+    driver: bridge

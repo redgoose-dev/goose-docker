@@ -1,0 +1,11 @@
+.idea/
+
+db/*
+!db/README.md
+
+# TODO: 작업이 어느정도 마무리되면 주석풀기
+# docker-compose.yml
+# www/*
+# !www/README.md
+# nginx/*
+# nginx/README.md
