@@ -1,60 +1,53 @@
 version: '3.7'
 
 services:
-  web:
-    image: nginx:latest
-    ports:
-      - "8000:8000" # api
-      - "8001:8001" # manager
-      - "8002:8002" # app
-    volumes:
-      - ./www:/www
-      - ./nginx/conf.d:/etc/nginx/conf.d
-    links:
-      - php
-    build:
-      #
-    networks:
-      - backend
-
   php:
     image: php:7.2-fpm
+    restart: always
     volumes:
       - ./www:/www
-    links:
-      - mysql
-    networks:
-      - backend
+    build:
+      context: .
+      dockerfile: ./src/Dockerfile-php
+#    links:
+#      - mysql
 
-  mysql:
-    image: mariadb:latest
-    ports:
-      - "3306:3306"
-    volumes:
-       - ./db/mysql:/var/lib/mysql
-       - ./db/conf.d:/etc/mysql/conf.d
-    environment:
-      - MYSQL_ROOT_PASSWORD=1234
-      - MYSQL_DATABASE=goose
-      - MYSQL_USER=goose
-      - MYSQL_PASSWORD=1234
-    restart: always
-    networks:
-      - backend
+#  web:
+#    image: nginx:latest
+#    ports:
+#      - "8000:8000"
+#      - "8001:8001"
+#      - "8002:8002"
+#    environment:
+#      - NGINX_HOST=${NGINX_HOST}
+#    volumes:
+#      - ./www:/www
+#      - ./config/nginx/conf.d:/etc/nginx/conf.d
+#    restart: always
+#    links:
+#      - php
+#
+#  mysql:
+#    image: mariadb:latest
+#    restart: always
+#    ports:
+#      - "3306:3306"
+#    volumes:
+#       - ./db/mysql:/var/lib/mysql
+#       - ./db/conf.d:/etc/mysql/conf.d
+#    environment:
+#      - MYSQL_ROOT_PASSWORD=1234
+#      - MYSQL_DATABASE=goose
+#      - MYSQL_USER=goose
+#      - MYSQL_PASSWORD=1234
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    links:
-      - mysql:db
-    ports:
-      - "7999:80"
-    environment:
-      - PMA_USER=root
-      - PMA_PASSWORD=1234 # mysql root password
-      - PHP_UPLOAD_MAX_FILESIZE=100MB
-    networks:
-      - backend
-
-networks:
-  backend:
-    driver: bridge
+#  phpmyadmin:
+#    image: phpmyadmin/phpmyadmin
+#    links:
+#      - mysql:db
+#    ports:
+#      - "7999:80"
+#    environment:
+#      - PMA_USER=root
+#      - PMA_PASSWORD=1234 # mysql root password
+#      - PHP_UPLOAD_MAX_FILESIZE=100MB
