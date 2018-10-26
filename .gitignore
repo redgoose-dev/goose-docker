@@ -8,5 +8,5 @@ db/*
 # docker-compose.yml
 # www/*
 # !www/README.md
-# nginx/*
-# nginx/README.md
+# config/*
+# !config/README.md

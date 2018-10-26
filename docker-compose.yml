@@ -1,14 +1,22 @@
 version: '3.7'
 
 services:
-  php:
-    image: php:7.2-fpm
-    restart: always
-    volumes:
-      - ./www:/www
+  api:
+    image: ubuntu:18.04
     build:
       context: .
-      dockerfile: ./src/Dockerfile-php
+      dockerfile: ./src/Dockerfile-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./config/nginx/api.conf:/etc/nginx/conf.d/api.conf
+      - ./api-data:/home/api/data
+
+#    restart: always
+#    volumes:
+#      - ./www:/www
+#    ports:
+#      - "8000:8000"
 #    links:
 #      - mysql
 

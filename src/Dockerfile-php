@@ -1,6 +1,0 @@
-FROM php:7.2-fpm
-MAINTAINER redgoose <scripter@me.com>
-
-RUN echo "============="
-RUN echo php -version
-# TODO: 여기부터 composer 설치
