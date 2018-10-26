@@ -2,23 +2,14 @@ version: '3.7'
 
 services:
   api:
-    image: ubuntu:18.04
     build:
       context: .
       dockerfile: ./src/Dockerfile-api
     ports:
       - "8000:8000"
+    restart: always
     volumes:
-      - ./config/nginx/api.conf:/etc/nginx/conf.d/api.conf
-      - ./api-data:/home/api/data
-
-#    restart: always
-#    volumes:
-#      - ./www:/www
-#    ports:
-#      - "8000:8000"
-#    links:
-#      - mysql
+      - ./config/api/data:/home/data
 
 #  web:
 #    image: nginx:latest
@@ -34,20 +25,20 @@ services:
 #    restart: always
 #    links:
 #      - php
-#
-#  mysql:
-#    image: mariadb:latest
-#    restart: always
-#    ports:
-#      - "3306:3306"
-#    volumes:
-#       - ./db/mysql:/var/lib/mysql
-#       - ./db/conf.d:/etc/mysql/conf.d
-#    environment:
-#      - MYSQL_ROOT_PASSWORD=1234
-#      - MYSQL_DATABASE=goose
-#      - MYSQL_USER=goose
-#      - MYSQL_PASSWORD=1234
+
+  mysql:
+    image: mariadb:latest
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+       - ./db/mysql:/var/lib/mysql
+       - ./db/conf.d:/etc/mysql/conf.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=goose
+      - MYSQL_USER=goose
+      - MYSQL_PASSWORD=1234
 
 #  phpmyadmin:
 #    image: phpmyadmin/phpmyadmin
