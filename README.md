@@ -9,7 +9,12 @@ docker on goose
 - `8001`: goose manager
 - `8002`: goose app
 
+## setup
+
+- 서버를 올리고 따로 설치 스크립트를 실행해야할것 같다.
+
+
 ## TODO
 
-- [ ] `config/api/nginx-app.conf` 좀더 설정하기
-- [ ] `./script.sh install` 명령이 안되는 현상이 일어나고 있다. 더 정확하게는 db 접속이 안되는듯함.
+- manager 부분 작업 시작하기
+- 퍼블릭 키가 만들어지면 그걸 쉽게 입력하게할 수 있는 방법 찾기

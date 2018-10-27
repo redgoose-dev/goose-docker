@@ -37,7 +37,7 @@ RUN composer install
 RUN ./script.sh ready
 COPY ./config/api/.env ./.env
 
-CMD service php7.2-fpm start && nginx -g "daemon off;" && ./script.sh install
-#CMD nginx -g "daemon off;"
+# play command
+CMD service php7.2-fpm start && nginx -g "daemon off;"
 
 EXPOSE 8000
