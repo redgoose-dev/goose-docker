@@ -9,9 +9,12 @@ docker on goose
 - `8001`: goose manager
 - `8002`: goose app
 
-## setup
 
-- 서버를 올리고 따로 설치 스크립트를 실행해야할것 같다.
+## install
+
+```bash
+./tools.sh install
+```
 
 
 ## TODO

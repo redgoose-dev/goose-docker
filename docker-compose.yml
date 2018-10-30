@@ -1,6 +1,21 @@
 version: '3.7'
 
 services:
+
+  mysql:
+    image: mariadb:latest
+    restart: always
+    ports:
+    - "3306:3306"
+    volumes:
+    - ./db/mysql:/var/lib/mysql
+    - ./db/conf.d:/etc/mysql/conf.d
+    environment:
+    - MYSQL_ROOT_PASSWORD=1234
+    - MYSQL_DATABASE=goose
+    - MYSQL_USER=goose
+    - MYSQL_PASSWORD=1234
+
   api:
     build:
       context: .
@@ -10,35 +25,6 @@ services:
     restart: always
     volumes:
       - ./config/api/data:/home/data
-
-#  web:
-#    image: nginx:latest
-#    ports:
-#      - "8000:8000"
-#      - "8001:8001"
-#      - "8002:8002"
-#    environment:
-#      - NGINX_HOST=${NGINX_HOST}
-#    volumes:
-#      - ./www:/www
-#      - ./config/nginx/conf.d:/etc/nginx/conf.d
-#    restart: always
-#    links:
-#      - php
-
-  mysql:
-    image: mariadb:latest
-    restart: always
-    ports:
-      - "3306:3306"
-    volumes:
-       - ./db/mysql:/var/lib/mysql
-       - ./db/conf.d:/etc/mysql/conf.d
-    environment:
-      - MYSQL_ROOT_PASSWORD=1234
-      - MYSQL_DATABASE=goose
-      - MYSQL_USER=goose
-      - MYSQL_PASSWORD=1234
 
 #  phpmyadmin:
 #    image: phpmyadmin/phpmyadmin
