@@ -9,11 +9,7 @@ api-install() {
 
 case "$1" in
 
-	api-install)
-		api-install
-		;;
-
-	install)
+	install-api)
 		docker-compose build
 		docker-compose up -d
 		sleep 3s
@@ -27,7 +23,7 @@ case "$1" in
 		;;
 
 	*)
-		echo "options: {install|api-install|reset-docker}" >&2
+		echo "options: {install-api|api-install|reset-docker}" >&2
 		exit 3
 		;;
 esac
