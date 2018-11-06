@@ -8,7 +8,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./config/api/data/mysql:/var/lib/mysql
+      - ./data/db:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=1234
       - MYSQL_DATABASE=goose
@@ -17,24 +17,34 @@ services:
 
   api:
     image: redgoose/goose-api
+    restart: always
     ports:
       - "8000:80"
-    restart: always
     volumes:
-      - ./config/api/nginx.conf:/etc/nginx/nginx.conf
-      - ./config/api/.env:/goose/.env
-      - ./config/api/data:/goose/data
-      - ./config/api/data/log-nginx:/var/log/nginx
-    links:
-      - mysql:mysql
+      - ./data/nginx.conf:/etc/nginx/nginx.conf
+      - ./data/.env-api:/goose/.env
+      - ./data/upload:/goose/data/upload
+      - ./data/log-nginx:/var/log/nginx
+
+#  mananger:
+#    build:
+#      context: ./data
+#      dockerfile: Dockerfile-manager
+#    ports:
+#      - "8001:3000"
+#    volumes:
+#      - ./data/.env-manager:/goose-manager/.env
+
+#  app:
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
-    links:
-      - mysql:db
     ports:
-      - "7999:80"
+      - "8003:80"
     environment:
-      - PMA_USER=goose
-      - PMA_PASSWORD=1234 # mysql root password
+      - PMA_HOST=mysql
       - PHP_UPLOAD_MAX_FILESIZE=100MB
+#      - PMA_USER=
+#      - PMA_PASSWORD=
+    links:
+      - mysql:mysql

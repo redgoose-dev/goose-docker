@@ -3,19 +3,35 @@ docker on goose
 
 ## port guide
 
-- `mysql:3306`: mysql
-- `7999`: phpmyadmin
-- `8000`: goose api
-- `8001`: goose manager
-- `8002`: goose app
+| Name | Port |
+|:---:|:---:|
+| mysql | 3306 |
+| goose-api | 8000 |
+| goose-manager | 8001 |
+| goose-app | 8002 |
+| phpmyadmin | 8003 |
 
 
 ## install
 
+먼저 필요한 이미지들을 빌드합니다.
+
 ```bash
-./tools.sh install
+docker-compose build
 ```
 
+다음 명령으로 컨테이너를 띄웁니다.
+
+```bash
+docker-compose up -d
+```
+
+성공적으로 컨테이너가 띄어졌다면 먼저확인
+
+
+```bash
+docker-compose exec api ./script.sh install
+```
 
 ## TODO
 
@@ -32,3 +48,17 @@ https://stackoverflow.com/questions/41405998/mysql-user-not-created-in-user-tabl
 그냥 db 설정은 따로 분리시켜버리는게 어떨까 싶다. 어짜피 사용하는 사람들은 대부분 따로 사용할거라 생각되고...
 
 따로 컨테이터 띄었을때도 한번 테스트해봐야겠다.
+
+
+
+## docker install process (docker-compose 로 사용할때..)
+
+1. mysql, `api`를 띄운다.
+1. `api` 인스톨을 하여 `token`값 알아낸다.
+1. `.env`파일을 수정한다. (token 값 삽입)
+1. goose-manager를 빌드한다.
+1. (이 과정에서 `goose-app`도 토큰 업데이트하고 다시 빌드할 필요가 있음.)
+1. `docker-compose down`으로 컨테이너를 내린다.
+1. `docker-compose up -d`로 다시 컨테이너를 올린다.
+
+문제점은 `goose-manager`와 `goose-app`을 빌드하고 컨테이너 띄울 필요가 없는데 해야한다는것이다. 뭔가 옵션으로 조건을 걸 수 있으면 좋을법한데...

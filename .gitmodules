@@ -1,3 +1,0 @@
-[submodule "www/goose-api"]
-	path = www/goose-api
-	url = https://github.com/redgoose-dev/goose-api.git

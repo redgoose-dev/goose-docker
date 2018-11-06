@@ -10,7 +10,6 @@ api-install() {
 case "$1" in
 
 	install-api)
-		docker-compose build
 		docker-compose up -d
 		sleep 3s
 		api-install

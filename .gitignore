@@ -1,7 +1,8 @@
 .idea/
 
-# database
-config/api/data
+# data
+data/db
+data/log-nginx
 
 # TODO: 작업이 어느정도 마무리되면 주석풀기
 # docker-compose.yml
