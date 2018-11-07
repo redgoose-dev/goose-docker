@@ -90,3 +90,7 @@ https://stackoverflow.com/questions/41405998/mysql-user-not-created-in-user-tabl
 ----
 
 manager에서 ssr 영역에서 api 가져오기 하면 127.0.0.1 관련 오류가 생기면서 새로고침하면 오류가 생긴다. 명확한 해결책을 못찾고 있는상황..
+
+---
+
+호스트 이름 문제가 해결되지 않는다면 플랜B로 api 이미지 베이스로 node와 manager, app 들을 추가시키고 pm2로 관리시키는 방법도 생각해봐야겠다.

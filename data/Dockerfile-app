@@ -9,7 +9,7 @@ WORKDIR goose-app
 RUN npm install
 
 ENV HOST 0.0.0.0
-ENV PORT 3000
+ENV PORT 8002
 
 RUN mkdir user
 
@@ -20,6 +20,6 @@ COPY app/img-error.png static/
 
 RUN npm run build
 
-EXPOSE 3000
+EXPOSE 8002
 
 CMD ["npm", "run", "start"]

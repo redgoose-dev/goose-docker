@@ -2,7 +2,7 @@
 
 # data
 data/db
-data/api/log-nginx
+data/api/log-nginx/
 
 
 # TODO: 작업이 어느정도 마무리되면 주석풀기

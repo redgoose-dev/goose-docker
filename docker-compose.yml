@@ -3,6 +3,7 @@ version: '3.7'
 services:
 
   mysql:
+    container_name: goose-mysql
     image: mariadb:latest
     restart: always
     ports:
@@ -16,42 +17,44 @@ services:
       - MYSQL_PASSWORD=1234
 
   api:
+    container_name: goose-api
     image: redgoose/goose-api
     restart: always
     ports:
-      - "8000:80"
+      - "8000:8000"
     volumes:
       - ./data/api/nginx.conf:/etc/nginx/nginx.conf
       - ./data/api/.env:/goose/.env
       - ./data/api/upload:/goose/data/upload
       - ./data/api/log-nginx:/var/log/nginx
-    environment:
-      - HOST=0.0.0.0
 
   manager:
+    container_name: goose-manager
     build:
       context: ./data
       dockerfile: Dockerfile-manager
     ports:
-      - "8001:3000"
-    links:
-      - api
+      - "8001:8001"
+#    links:
+#      - api
 
-  app:
-    build:
-      context: ./data
-      dockerfile: Dockerfile-app
-    ports:
-      - "8002:3000"
+#  app:
+#    container_name: goose-app
+#    build:
+#      context: ./data
+#      dockerfile: Dockerfile-app
+#    ports:
+#      - "8002:8002"
 
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    ports:
-      - "8003:80"
-    environment:
-      - PMA_HOST=mysql
-      - PHP_UPLOAD_MAX_FILESIZE=100MB
-#      - PMA_USER=
-#      - PMA_PASSWORD=
-    links:
-      - mysql:mysql
+#  phpmyadmin:
+#    container_name: goose-myadmin
+#    image: phpmyadmin/phpmyadmin
+#    ports:
+#      - "8003:80"
+#    environment:
+#      - PMA_HOST=mysql
+#      - PHP_UPLOAD_MAX_FILESIZE=100MB
+##      - PMA_USER=
+##      - PMA_PASSWORD=
+#    links:
+#      - mysql:mysql
