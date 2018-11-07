@@ -33,22 +33,6 @@ docker-compose up -d
 docker-compose exec api ./script.sh install
 ```
 
-## TODO
-
-- manager 부분 작업 시작하기
-- 퍼블릭 키가 만들어지면 그걸 쉽게 입력하게할 수 있는 방법 찾기
-- 뭔가 db 데이터가 늦게 만들어지는거 같아서 goose-api 인스톨이 불가능하다. 그래서 수동으로 인스톨을 하게하는 방법을 찾아야할듯..
-
-
-https://stackoverflow.com/questions/41405998/mysql-user-not-created-in-user-table-when-using-docker-compose
-
-`docker-compose exec mysql /bin/bash` 로 접속만 하면 바로 볼륨에 피일이 만들어지진 않는다.
-컨테이너 내부에서도 꽤 시간이 걸린다.
-
-그냥 db 설정은 따로 분리시켜버리는게 어떨까 싶다. 어짜피 사용하는 사람들은 대부분 따로 사용할거라 생각되고...
-
-따로 컨테이터 띄었을때도 한번 테스트해봐야겠다.
-
 
 ## 최소한의 data 구조
 
@@ -83,3 +67,26 @@ https://stackoverflow.com/questions/41405998/mysql-user-not-created-in-user-tabl
 1. `docker-compose up -d`로 다시 컨테이너를 올린다.
 
 문제점은 `goose-manager`와 `goose-app`을 빌드하고 컨테이너 띄울 필요가 없는데 해야한다는것이다. 뭔가 옵션으로 조건을 걸 수 있으면 좋을법한데...
+
+
+
+
+
+## 이슈 메모
+
+- manager 부분 작업 시작하기
+- 퍼블릭 키가 만들어지면 그걸 쉽게 입력하게할 수 있는 방법 찾기
+- 뭔가 db 데이터가 늦게 만들어지는거 같아서 goose-api 인스톨이 불가능하다. 그래서 수동으로 인스톨을 하게하는 방법을 찾아야할듯..
+
+https://stackoverflow.com/questions/41405998/mysql-user-not-created-in-user-table-when-using-docker-compose
+
+`docker-compose exec mysql /bin/bash` 로 접속만 하면 바로 볼륨에 피일이 만들어지진 않는다.
+컨테이너 내부에서도 꽤 시간이 걸린다.
+
+그냥 db 설정은 따로 분리시켜버리는게 어떨까 싶다. 어짜피 사용하는 사람들은 대부분 따로 사용할거라 생각되고...
+
+따로 컨테이터 띄었을때도 한번 테스트해봐야겠다.
+
+----
+
+manager에서 ssr 영역에서 api 가져오기 하면 127.0.0.1 관련 오류가 생기면서 새로고침하면 오류가 생긴다. 명확한 해결책을 못찾고 있는상황..

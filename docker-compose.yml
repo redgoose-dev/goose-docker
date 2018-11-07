@@ -25,6 +25,8 @@ services:
       - ./data/api/.env:/goose/.env
       - ./data/api/upload:/goose/data/upload
       - ./data/api/log-nginx:/var/log/nginx
+    environment:
+      - HOST=0.0.0.0
 
   manager:
     build:
@@ -32,6 +34,8 @@ services:
       dockerfile: Dockerfile-manager
     ports:
       - "8001:3000"
+    links:
+      - api
 
   app:
     build:
