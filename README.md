@@ -6,9 +6,9 @@ docker on goose
 | Name | Port |
 |:---:|:---:|
 | mysql | 3306 |
-| goose-api | 8000 |
-| goose-manager | 8001 |
-| goose-app | 8002 |
+| api | 8000 |
+| manager | 8001 |
+| app | 8002 |
 | phpmyadmin | 8003 |
 
 
@@ -50,14 +50,35 @@ https://stackoverflow.com/questions/41405998/mysql-user-not-created-in-user-tabl
 따로 컨테이터 띄었을때도 한번 테스트해봐야겠다.
 
 
+## 최소한의 data 구조
+
+- (dir) /data
+- (dir) /data/api/upload
+- (file) /data/api.env
+- (file) /data/api/nginx.conf
+
+- (dir) /data/manager
+- (file) /data/manager/.env
+
+- (dir) /data/app
+- (file) /data/app/env.js
+- (file) /data/app/env.scss
+- (file) /data/app/ico-logo.png
+- (file) /data/app/img-error.png
+
+- (file) /data/Dockerfile-manager
+- (file) /data/Dockerfile-app
+
 
 ## docker install process (docker-compose 로 사용할때..)
 
-1. mysql, `api`를 띄운다.
-1. `api` 인스톨을 하여 `token`값 알아낸다.
-1. `.env`파일을 수정한다. (token 값 삽입)
-1. goose-manager를 빌드한다.
-1. (이 과정에서 `goose-app`도 토큰 업데이트하고 다시 빌드할 필요가 있음.)
+1. mysql, `api`를 띄운다.  
+`docker-compose up -d mysql api`
+1. `api` 인스톨을 하여 `token`값 알아낸다. (mysql 처음 띄우면 파일이 만들어질때까지 기다려야함)  
+`docker-compose exec api ./script.sh install`
+1. `.env`파일들을 수정한다. (manager, app 파일들 token 값 삽입)
+1. `goose-manager`, `goose-app`를 빌드한다.  
+`docker-compose build`
 1. `docker-compose down`으로 컨테이너를 내린다.
 1. `docker-compose up -d`로 다시 컨테이너를 올린다.
 

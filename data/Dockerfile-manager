@@ -11,7 +11,7 @@ RUN npm install
 ENV HOST 0.0.0.0
 ENV PORT 3000
 
-COPY .env /goose-manager
+COPY manager/.env .
 RUN npm run build
 
 EXPOSE 3000

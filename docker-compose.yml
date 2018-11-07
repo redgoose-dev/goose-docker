@@ -21,21 +21,24 @@ services:
     ports:
       - "8000:80"
     volumes:
-      - ./data/nginx.conf:/etc/nginx/nginx.conf
-      - ./data/.env-api:/goose/.env
-      - ./data/upload:/goose/data/upload
-      - ./data/log-nginx:/var/log/nginx
+      - ./data/api/nginx.conf:/etc/nginx/nginx.conf
+      - ./data/api/.env:/goose/.env
+      - ./data/api/upload:/goose/data/upload
+      - ./data/api/log-nginx:/var/log/nginx
 
-#  mananger:
-#    build:
-#      context: ./data
-#      dockerfile: Dockerfile-manager
-#    ports:
-#      - "8001:3000"
-#    volumes:
-#      - ./data/.env-manager:/goose-manager/.env
+  manager:
+    build:
+      context: ./data
+      dockerfile: Dockerfile-manager
+    ports:
+      - "8001:3000"
 
-#  app:
+  app:
+    build:
+      context: ./data
+      dockerfile: Dockerfile-app
+    ports:
+      - "8002:3000"
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
