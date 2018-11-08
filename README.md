@@ -12,28 +12,6 @@ docker on goose
 | phpmyadmin | 8003 |
 
 
-## install
-
-먼저 필요한 이미지들을 빌드합니다.
-
-```bash
-docker-compose build
-```
-
-다음 명령으로 컨테이너를 띄웁니다.
-
-```bash
-docker-compose up -d
-```
-
-성공적으로 컨테이너가 띄어졌다면 먼저확인
-
-
-```bash
-docker-compose exec api ./script.sh install
-```
-
-
 ## 최소한의 data 구조
 
 - (dir) /data
