@@ -1,6 +1,11 @@
 # goose-docker
 docker on goose
 
+> 설치 규모가 너무 거창하게 되어버려서 작업 중단.  
+> api 활용하는 앱 부분까지만 docker로 싸고, 활용하는 부분은 별도로 설치하는게 더 나아보임.
+> 자세한 내용은 `이슈 메모` 섹션 참고
+
+
 ## port guide
 
 | Name | Port |
@@ -47,9 +52,6 @@ docker on goose
 문제점은 `goose-manager`와 `goose-app`을 빌드하고 컨테이너 띄울 필요가 없는데 해야한다는것이다. 뭔가 옵션으로 조건을 걸 수 있으면 좋을법한데...
 
 
-
-
-
 ## 이슈 메모
 
 - manager 부분 작업 시작하기
@@ -67,8 +69,23 @@ https://stackoverflow.com/questions/41405998/mysql-user-not-created-in-user-tabl
 
 ----
 
+##### 2018-11-07
+
 manager에서 ssr 영역에서 api 가져오기 하면 127.0.0.1 관련 오류가 생기면서 새로고침하면 오류가 생긴다. 명확한 해결책을 못찾고 있는상황..
 
----
-
 호스트 이름 문제가 해결되지 않는다면 플랜B로 api 이미지 베이스로 node와 manager, app 들을 추가시키고 pm2로 관리시키는 방법도 생각해봐야겠다.
+
+----
+
+##### 2018-11-08
+
+현재까지의 문제점을 정리하자면 `goose-manager`나 `goose-api`이 nuxt 로 만들어져 있어서 `node`, `browser` 두군데에서 api 요청을 하는데 localhost라면 서로 다르게 host를 만들어버린다.
+
+`links`로 컨테이너를 띄울때 정상적으로 접속하려면 다음과 같이 접근해야한다.
+
+- node: http://api:8000
+- browser: http://localhost:8000
+
+하지만 node에서는 `127.0.0.1`로 요청을 하기 때문에 접근에서 실패해버린다.
+
+manager에서 서로다른 host로 api 요청을 할 수 있지만 goose-api가 쉽게 받아줄런지 모르겠다. (테스트 해봐야함)
